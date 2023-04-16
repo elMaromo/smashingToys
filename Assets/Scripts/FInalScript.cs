@@ -9,6 +9,7 @@ public class FInalScript : MonoBehaviour
     public List<GameObject> clocks;
     private int health;
     private Vector3 originalClockScale;
+    public GameManagerScript gameMangr;
 
     private void Awake()
     {
@@ -34,7 +35,7 @@ public class FInalScript : MonoBehaviour
 
             if( health == 0 )
             {
-                ResetLife();
+                gameMangr.GameOver();
             }
         }
     }

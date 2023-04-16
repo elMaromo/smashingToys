@@ -8,6 +8,7 @@ public class ButtonsScrip : MonoBehaviour
     public string letter;
     public Color HilightColor;
     public List<ButtonsScrip> nextButons;
+    public GameManagerScript gammngr;
 
     [HideInInspector] public bool activated;
     [HideInInspector] public bool isActivable = true;
@@ -16,11 +17,13 @@ public class ButtonsScrip : MonoBehaviour
 
     private Material mat;
     private Color originalColor;
+    private AudioSource audi;
     
 
     private void Awake()
     {
         mat = GetComponent<Renderer>().material;
+        audi = GetComponent<AudioSource>();
         activated = false;
         originalColor = mat.color;
     }
@@ -47,6 +50,9 @@ public class ButtonsScrip : MonoBehaviour
             monster.GetComponent<MonsterScript>().alive = false;
             Destroy(monster, 0.5f);
             monsterHere = false;
+            gammngr.IncreaseScore();
+
+            audi.Play();
         }
     }
 

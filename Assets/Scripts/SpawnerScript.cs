@@ -16,9 +16,11 @@ public class SpawnerScript : MonoBehaviour
     private float originalSpawnRatio;
     private float timer;
     private float ratioTimer;
+    private bool gameActive;
 
     private void Awake()
     {
+        gameActive = false;
         originalSpawnRatio = spawnRatio;
         timer = spawnRatio;
         ratioTimer = timeToIncreaseRatio;
@@ -26,6 +28,10 @@ public class SpawnerScript : MonoBehaviour
 
     private void Update()
     {
+        if(!gameActive)
+        {
+            return;
+        }
 
         timer -= Time.deltaTime;
         ratioTimer -= Time.deltaTime;
@@ -57,6 +63,19 @@ public class SpawnerScript : MonoBehaviour
     {
         Vector3 enPos = Cas.transform.position + Vector3.up * offsetY;
         monster.transform.DOJump(enPos, 1, 1, 0.3f).SetEase(Ease.OutQuad);
+    }
+
+    public void StopGame()
+    {
+        gameActive = false;
+    }
+
+    public void StartGame()
+    {
+        gameActive = true;
+        spawnRatio = originalSpawnRatio;
+        timer = spawnRatio;
+        ratioTimer = timeToIncreaseRatio;
     }
 
 }
